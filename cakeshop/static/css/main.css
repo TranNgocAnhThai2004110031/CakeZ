@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Hind+Madurai:wght@300&display=swap');
+
+.myapp {
+    padding: 0;
+}
+/* header */
+.header-wrapper {
+    justify-content: space-between;
+}
+
+.header {
+    width: 100%;
+    z-index: 999;
+    position: fixed;
+    padding: 0px 20px !important;
+    height: 64px !important;
+}
+
+.navbar-brand {
+    font-size: 2.2rem;
+}
+
+.navbar__logo {
+    width: 220px;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.background__offcanvas {
+    backdrop-filter: blur(22px);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.offcanvas-body {
+    font-family: 'Hind Madurai', sans-serif;
+}
+
+.background__offcanvas-text {
+    z-index: 5;
+}
+
+.btn-close {
+    font-size: 2.2rem;
+}
+
+.navbar-toggler {
+    font-size: 2.2rem;
+    backdrop-filter: blur(22px);
+}
+
+.offcanvas-title {
+    font-size: 5.0rem;
+    color: var(--main-color);
+    font-family: 'Dancing Script', cursive;
+}
+.nav-link {
+    font-size: 3.8rem;
+    text-align: center;
+}
+
+.nav-link:hover {
+    filter: brightness(1.75);
+    background-color: transparent;
+    color: var(--main-color) !important;
+    text-shadow: 0px 0px 8px var(--main-color);
+}
+
+.dropdown-item {
+    font-size: 2.4rem;
+}
+
+.form_search {
+    height: 50px;
+    font-size: 1.8rem;
+}
+
+.form_search::placeholder {
+    font-size: 1.8rem;
+}
+
+.btn-bagshop-cover {
+    /* padding: 10px; */
+}
+
+.btn-bagshop-icon {
+    font-size: 2.4rem;
+    padding: 10px 6px;
+    position: relative;
+}
+
+
+.btn-bagshop-bacground-number {
+    position: absolute;
+    top: 12%;
+    right: -12%;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: red;
+    display: flex;
+}
+
+.btn-bagshop-number {
+    margin: auto;
+    font-size: 1.6rem;
+}
+
+.text-white {
+    font-weight: 500;
+    font-size: 2.8rem;
+}
+
+.search_button {
+    font-size: 1.8rem;
+}
+
+/* Main slider */
+
+.background-slider {
+    margin: 0;
+    background-attachment: fixed !important;
+    z-index: -2 !important;
+}
+
+.background-slider__column {
+    padding: 0;
+}
+
+.background-slider__list {
+    width: 100%;
+}
+
+.background-slider__item {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed !important; */
+}
+
+.background-slider__item-products {
+    height: 18vh !important;
+}
+
+.background-slider__content {
+    left: 140px;
+    top: 140px;
+    font-size: 12.2rem;
+    position: absolute;
+    text-align: center;
+    color: var(--white-color);
+    font-family: 'Dancing Script', cursive;
+}
+
+
+
+.introduce__background {
+    height: 530px;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.introduce__background-content {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: var(--white-color);
+    background-color: var(--main-color);
+}
+
+.introduce__background-content-wrapper {
+    padding: 14%;
+    /* position: absolute; */
+}
+
+.introduce__background-title {
+    font-weight: 600;
+    font-size: 4.6rem;
+    font-family: 'Dancing Script', cursive;
+}
+
+.introduce__background-para {
+    font-size: 2.2rem;
+}
+
+.introduce__background-icon {
+    font-size: 15.4rem;
+    color: var(--white-color);
+}
+
+.introduce__background-img {
+    height: 400px;
+    width: 175%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.para-list {
+    list-style: none;
+    padding: 0px;
+}
+
+.para-text {
+    font-size: 1.8rem;
+}
+
+.para-icon {
+    font-size: 1.4rem;
+}
+
+
+/* footer */
+.footer__color {
+    color: var(--white-color) !important;
+    background-color: rgb(37, 37, 37) !important;
+}
+
+.network__title {
+    font-size: 2.2rem;
+    font-family: 'Dancing Script', cursive;
+}
+
+.network__wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.network__icon {
+    font-size: 2.2rem;
+}
+
+.footer__title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: rgb(223, 176, 57);
+}
+
+.company_content-wrapper {
+    padding: 0 20px;
+}
+
+.footer__content {
+    font-size: 1.8rem;
+}
+
+.footer__text {
+    font-size: 1.6rem;
+    background-color: rgb(47, 47, 47) !important;
+}

@@ -1,0 +1,45 @@
+.table-wrap {
+    border-radius: 4px;
+}
+.heading-section {
+    font-size: 48px !important;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+}
+
+.text-center-color {
+    color: rgb(202, 38, 38);
+    font-weight: 600;
+}
+
+.row_baground-cl {
+    background-color: rgb(25, 110, 82) !important;
+    color: whitesmoke !important;
+}
+
+.detail_box {
+    transition: 0.5s;
+    /* --growth-from: 0.3;
+    --growth-to: 1;
+    animation: growth linear 0.1s; */
+}
+
+@keyframes growth {
+    from {
+        transform: scale(var(--growth-from));
+    }
+    
+    to {
+        transform: scale(var(--growth-to));
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    
+    to {
+        opacity: 1;
+    }
+}

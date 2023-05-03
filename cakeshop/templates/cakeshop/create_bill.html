@@ -1,0 +1,83 @@
+<!-- create_bill.html -->
+{% extends 'cakeshop/base.html' %}
+{% load static %}
+{% block additionalCss %}
+<link rel="stylesheet" href="{% static '/css/base.css' %}">
+<link rel="stylesheet" href="{% static '/css/main.css' %}">
+<link rel="stylesheet" href="{% static '/css/responsive.css' %}">
+<link rel="stylesheet" href="{% static '/css/forminfo.css' %}">
+{% endblock additionalCss %}
+{% block content %}
+<div class="form-cover" style="
+    background-image: url(https://websitecukcukvn.misacdn.net/wp-content/uploads/2022/12/cua-hang-banh-ngot.jpg) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    width: 100%;
+    height: 100%;
+    ">
+  <div class="form-wapper">
+    <h1 class="form-tite">Create Bill</h1>
+    <form method="post" class="form" style="width: auto;">
+      {% csrf_token %}
+      <div class="form__content-wrapper">
+        <div class="form__content">
+          <label class="form__label" for="first_name">First name:<span class="form__label-star">*</span> </label>
+          <input class="form__input" placeholder="Type here !" type="text" name="first_name" id="first_name" required>
+        </div>
+        <div class="form__content">
+          <label class="form__label" for="last_name">Last name:<span class="form__label-star">*</span></label>
+          <input class="form__input" placeholder="Type here !" type="text" name="last_name" id="last_name" required>
+        </div>
+      </div>
+      <div class="form__content">
+        <label class="form__label" for="email">Email: <span class="form__label-star">*</span></label>
+        <input class="form__input" placeholder="Type here !" type="email" name="email" id="email" required>
+      </div>
+      <div class="form__content">
+        <label class="form__label" for="address">Address:<span class="form__label-star">*</span></label>
+        <input class="form__input" placeholder="Type here !" type="text" name="address" id="address" required>
+      </div>
+      <div class="form__content">
+        <label class="form__label" for="town_city">Town/City:<span class="form__label-star">*</span></label>
+        <input class="form__input" placeholder="Type here !" type="text" name="town_city" id="town_city" required>
+      </div>
+      <div class="form__content">
+        <label class="form__label" for="phone_number">Phone number:<span class="form__label-star">*</span></label>
+        <input class="form__input" placeholder="Type here !" type="text" name="phone_number" id="phone_number" required>
+      </div>
+      <!-- <div class="form__content"> -->
+        <label class="form__label" for="add_information">Note:</label>
+        <br>
+        <textarea class="form__textarea" name="add_information" id="add_information"></textarea>
+      <!-- </div> -->
+
+      <!-- <label for="cake">Cake:</label>
+    <select name="cake" id="cake" required>
+      {% for cake in cakes %}
+      <option value="{{ cake.pk }}">{{ cake.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" id="quantity" min="1" max="10" value="1" required> -->
+      {% for cart in cart %}
+      <div class="product">
+        <!-- <form class="col-lg-7 product" action="{% url 'cakeshop:update_item' cart.id %}"
+            method="post"> -->
+        {% csrf_token %}
+        <h4 class="product__name">{{ cart.name }}</h4>
+        <input class="product__input" type="number" name="quantity" value="{{ cart.quantity }}">
+        <p class="product__price">${{ cart.price }}</p>
+        <!-- </form> -->
+      </div>
+      {% endfor %}
+
+      {% if request.session.total %}
+      <p class="product__totalprice">Total price: ${{ request.session.total }}</p>
+      {% endif %}
+
+      <input class="product__btn-submit" type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+{% endblock %}
