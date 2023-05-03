@@ -1,0 +1,139 @@
+/* PC */
+@media (min-width: 1024px) {
+    .navbar_mobile {
+        display: none;
+    }
+}
+
+/*Tablet */
+@media (min-width: 740px) and (max-width: 1180px) {
+    .navbar_mobile {
+        display: block;
+    }
+
+    .header_main {
+        display: none !important;
+    }
+
+    .background-slider__item {
+        height: 70vh;
+    }
+
+    .background-slider__content {
+        left: 100px;
+        top: 80px;
+        font-size: 9.2rem;
+        position: absolute;
+        text-align: center;
+        color: var(--white-color);
+    }
+
+    .introduce__background {
+        height: 240px;
+    }
+
+    .introduce__background-title {
+        font-size: 2.6rem;
+    }
+
+    .introduce__background-para {
+        font-size: 1.2rem;
+    }
+
+    .slick-arrow {
+        display: none !important;
+    }
+
+    .item__detail-background {
+        height: 240px !important;
+    }
+
+    .item_detail-name {
+        font-size: 4.6rem !important;
+    }
+
+    .item_detail-para {
+        font-size: 1.4rem;
+    }
+
+    .item_detail-input-label {
+        font-size: 2.8rem;
+    }
+}
+
+/* Mobile */
+@media (min-width: 0px) and (max-width: 640px) {
+    .header {
+        padding: 10px !important;
+    }
+
+    .navbar__logo {
+        width: 130px;
+        height: 80px;
+    }
+
+    .background-slider__item {
+        height: 50vh;
+    }
+
+    .background-slider__content {
+        left: 50px;
+        top: 80px;
+        font-size: 4.2rem !important;
+        position: absolute;
+        text-align: center;
+        color: var(--white-color);
+    }
+
+    .offcanvas-title {
+        font-size: 3.8rem;
+        color: var(--main-color);
+    }
+    .nav-link {
+        font-size: 2.2rem;
+    }
+    
+    .dropdown-item {
+        font-size: 2.8rem;
+    }
+
+    .introduce__background {
+        height: 210px;
+    }
+
+    .introduce__background-title {
+        font-size: 2.2rem;
+    }
+
+    .introduce__background-para {
+        font-size: 0.8rem;
+    }
+
+    .para-text {
+        font-size: 0.8rem;
+    }
+
+    .slick-arrow {
+        display: none !important;
+    }
+
+    .item__detail-size {
+        width: 80% !important;
+    }
+
+    .item__detail-background {
+        height: 150px !important;
+    }
+
+    .item_detail-name {
+        font-size: 2.8rem !important;
+    }
+
+    .item_detail-para {
+        font-size: 1.4rem !important;
+    }
+
+    .item_detail-input-label {
+        font-size: 1.8rem !;
+    }
+}

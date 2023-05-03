@@ -1,0 +1,374 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+* {
+    font-family: 'Dancing Script', cursive !important;
+} */
+
+body {
+    background-color: #e8e6e6cc;
+}
+
+.main__content {
+    margin-top: 4px;
+}
+
+.content__category {
+    
+}
+
+.content__category-title {
+    font-size: 5.8rem;
+    font-weight: bold;
+    font-family: 'Dancing Script', cursive;
+    /* margin-bottom: 0px; */
+}
+
+.content__category-list {
+    padding-left: 0px;
+    border-radius: 4px;
+    list-style: none;
+    background-color: white;
+}
+
+.content__category-item {
+    font-size: 2.8rem;
+    padding-left: 20px;
+}
+
+.content__category-item:hover {
+    background-color: var(--main-color);
+    color: var(--white-color);
+}
+
+.content__category-link {
+    color: black;
+    text-decoration: none;
+    padding: 100%;
+}
+/* banner slider */
+.banner-wrapper {
+    padding: 0px;
+}
+
+.banner_bacground {
+    margin:0px 2px;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Advertisement */
+.advertisement__picture {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-top: 12px;
+    border-radius: 4px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.advertisement__discount-bg {
+    width: 50%;
+    height: 30%;
+    top: -8%;
+    left: -14%;
+    display: flex;
+    position: absolute;
+    border-radius: 100%;
+    background-color: rgb(118, 0, 154);
+}
+
+.advertisement__discount-text {
+    margin: 44% 0% 0% 40%;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+}
+
+
+/* list item */
+.products__list-item-move {
+    margin: 0px 0px 4px 0px !important;
+    padding: 0;
+}
+
+.product_item-wrapper {
+    margin-top: 4px;
+}
+
+.product_item-link {
+    color: black;
+    text-decoration: none;
+}
+
+.product_item-background-color {
+    background-color: white;
+}
+
+
+.products__item {
+    margin: 0px 2px 12px 2px !important;
+    background-color: white;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.item__picture-wrapper {
+    cursor: pointer;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.item__picture {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item__picture:hover {
+    transition: 0.5s;
+    overflow: hidden;
+    transform: scale(1.5);
+}
+
+.products__item-info {
+
+}
+
+.item__info {
+    text-align: center;
+    position: relative;
+}
+
+.item__info:hover .item__btn {
+    display: block;
+}
+
+.item__name {
+    font-size: 2.6rem;
+    padding-top: 4px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+.item__price {
+    font-size: 2.2rem;
+    color: goldenrod;
+}
+
+.item__btn {
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    animation: fadeIn ease-in 0.3s;
+    background-color: goldenrod;
+    display: none;
+}
+
+.item__link-cart {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100% !important;
+    color: var(--white-color);
+}
+
+.item__link-cart:focus ~ .modal {
+    display: block !important;
+}
+
+.item__icon {
+    font-size: 2.6rem;
+    margin-right: 4%;
+}
+
+.item__text {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Company slider */
+.company-item {
+    margin: 0px 2px;
+}
+
+.company_name {
+    font-size: 2.8rem;
+    padding: 8px 0px;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 0px;
+}
+
+.company_link {
+    margin: 0 14px;
+    
+}
+
+.company-wrapper {
+    padding: 0px;
+}
+
+.company_bacground {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.company_name-wrapper {
+    background-color: goldenrod;
+    padding: 0px 2px;
+}
+
+.company_name-text {
+    color: var(--white-color);
+    font-size: 1.4rem;
+}
+
+/* Comment */
+.comment__wrapper-slider {
+    padding: 0px;
+}
+
+.comment__wrapper {
+    padding: 12px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.comment__icon {
+    font-size: 2.8rem;
+}
+
+.comment__para {
+    font-size: 1.6rem;
+    font-family: 'Dancing Script', cursive;
+}
+
+.comment__avatar {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.comment__name {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-top: 12px;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* form item detail */
+.item__detail-size {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center !important;
+}
+
+.item__detail {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: var(--white-color);
+}
+
+.form-row {
+    padding: 0;
+}
+
+.item__detail-background {
+    margin: 0px;
+    width: 100%;
+    height: 470px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item_detail-content {
+    padding: 4%;
+    height: 400px;
+}
+
+.item_detail-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+.item_detail-para {
+    font-size: 1.8rem;
+    text-align: justify;
+    overflow: scroll;
+    height: calc(400px - 2.8rem - 140px);
+}
+
+.item_detail-quantity-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.item_detail-input-label {
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+.item_detail-input {
+    width: 24%;
+    height: 50px !important;
+    margin-left: 8px !important;
+    padding-left: 12px;
+    font-size: 2.2rem;
+}
+
+.item_detail-btn-cover {
+   margin-top: 40%;
+}
+
+.item_detail-btn-wrapper {
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+}
+
+.item_detail-btn-add {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    font-size: 3.2rem;
+    color: #cccc;
+    background-color: var(--main-color);
+}
+
+.item_detail-btn-add:hover {
+    background-color: var(--main-color);
+    filter: brightness(1.55);
+}
+
+.shop-item__link-text {
+    font-size: 2.2rem;
+}
