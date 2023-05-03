@@ -40,8 +40,7 @@ class Shop(View):
             orders = Order.objects.filter(user=request.user)
             count = len(orders)
             request.session['count'] = count
-        context = {'cakes': cakes, 'categories': categories, 'count': count,
-                   'cheap_cakes': cheap_cakes, }
+        context = {'cakes': cakes, 'categories': categories, 'count': count, 'cheap_cakes': cheap_cakes, }
         return render(request, 'cakeshop/products.html', context)
 
     def search(request):
@@ -53,7 +52,6 @@ class Shop(View):
 
         categories = Category.objects.all()
         context = {'categories': categories, 'cakes': cakes}
-
         return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
@@ -212,14 +210,77 @@ class Cart(View):
 
 class BillView(View):
     def get_bill(request, pk):
-        
-        return render(request, ['cakeshop/bill.html', 'cakeshop/purchase_history.html'])
+        bill = get_object_or_404(Bill, pk=pk)
+        cake_list = json.loads(bill.cake_list)
+        context = {'bill': bill, 'cake_list': cake_list}
+        return render(request, ['cakeshop/bill.html', 'cakeshop/purchase_history.html'], context)
 
     def create_bill(request):
-        
-        return redirect(reverse('cakeshop:bill'))
-            
+        if request.user.is_authenticated == False:
+            return redirect('/authentication/login/')
+        else:
+            username = request.user
+            if request.method == 'POST':
+                email = request.POST['email']
+                first_name = request.POST['first_name']
+                last_name = request.POST['last_name']
+                address = request.POST['address']
+                town_city = request.POST['town_city']
+                phone_number = request.POST['phone_number']
+                add_information = request.POST.get('add_information', '')
+
+                cake_list = []
+                total_price = 0
+                orders = Order.objects.filter(user=username)
+                cakes = Cake.objects.all()
+                for order in orders:
+                    for cake in cakes:
+                        if cake.pk == order.cake_id:
+                            cake_name = cake.name
+                            quantity = order.quantity
+                            total_price += float(cake.price) * \
+                                float(order.quantity)
+                            cake.quantity -= quantity
+                            cake.save()
+                            cake_list.append(
+                                {'cake_name': cake_name, 'price': float(cake.price), 'quantity': int(quantity)})
+
+                cake_list = json.dumps(cake_list)
+                bill = Bill.objects.create(user=username, email=email, first_name=first_name, last_name=last_name, address=address, town_city=town_city,
+                                           phone_number=phone_number, add_information=add_information, cake_list=cake_list, total_price=total_price)
+                bill.save()
+                Order.objects.filter(user=username).delete()
+
+                return redirect(reverse('cakeshop:bill', args=[bill.pk]))
+            else:
+                orders = Order.objects.filter(user=username)
+                cakes = Cake.objects.all()
+                cart = []
+                total = 0
+                for order in orders:
+                    for cake in cakes:
+                        if cake.id == order.cake_id:
+                            price = float(cake.price) * float(order.quantity)
+                            total += price
+                            new_item = {'id': order.id, 'name': cake.name,
+                                        'price': price, 'quantity': order.quantity}
+                            cart.append(new_item)
+                request.session['total'] = total
+                context = {'cart': cart}
+                return render(request, 'cakeshop/create_bill.html', context)
 
     def get_all_bill(request):
-        
-        return render(request, 'cakeshop/purchase_history.html')
+        bill_list = Bill.objects.filter(user=request.user)
+        bills = []
+        for bill in bill_list:
+            cake_list = json.loads(bill.cake_list)
+            new_bill = {'id': bill.id, 'email': bill.email, 'phone_number': bill.phone_number,
+                        'first_name': bill.first_name, 'last_name': bill.last_name,
+                        'town_city': bill.town_city, 'address': bill.address,
+                        'date': bill.date, 'note': bill.add_information,
+                        'cake_list': cake_list, 'total': float(bill.total_price)}
+
+            bills.append(new_bill)
+
+        context = {'bills': bills}
+        return render(request, 'cakeshop/purchase_history.html', context)
