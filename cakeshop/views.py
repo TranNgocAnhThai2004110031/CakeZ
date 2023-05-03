@@ -28,19 +28,43 @@ class Home(View):
 
 class Shop(View):
     def cakes_list(request):
-        
-        return render(request, 'cakeshop/products.html')
+        cakes = Cake.objects.all().order_by('-id')
+        categories = Category.objects.all()
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+
+        if request.user.is_authenticated == False:
+            cart = Cart.get_cart(request)
+            count = len(cart)
+            request.session['count'] = count
+        else:
+            orders = Order.objects.filter(user=request.user)
+            count = len(orders)
+            request.session['count'] = count
+        context = {'cakes': cakes, 'categories': categories, 'count': count,
+                   'cheap_cakes': cheap_cakes, }
+        return render(request, 'cakeshop/products.html', context)
 
     def search(request):
+        query = request.GET.get('query')
+        if query:
+            cakes = Cake.search(query)
+        else:
+            cakes = Cake.objects.all()
 
-        return render(request, 'cakeshop/products.html')
+        categories = Category.objects.all()
+        context = {'categories': categories, 'cakes': cakes}
+
+        return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
-        
-        return render(request, 'cakeshop/cake_detail.html')
+        cake = get_object_or_404(Cake, pk=pk)
+        return render(request, 'cakeshop/cake_detail.html', {'cake': cake})
 
     def cate_detail(request, pk):
-        return render(request, ['cakeshop/products.html', 'cakeshop/base.html'])
+        categories = Category.objects.all()
+        cakes = Cake.objects.filter(category=pk)
+        context = {'categories': categories, 'cakes': cakes}
+        return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 class Cart(View):
 
