@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+    <style>
+        .bill {
+            width: 80%;
+            margin: 0 auto;
+            font-size: 1.2em;
+            }
+            
+            h1 {
+            text-align: center;
+            }
+            
+            p {
+            margin-bottom: 10px;
+            }
+
+    </style>
+  </head>
+  <body>
+    <div class="bill">
+      <h1>Bill</h1>
+      <p>User: {{ bill.user }}</p>
+      <p>Email: {{ bill.email }}</p>
+      <p>First Name: {{ bill.first_name }}</p>
+      <p>Last Name: {{ bill.last_name }}</p>
+      <p>Address: {{ bill.address }}</p>
+      <p>Town/City: {{ bill.town_city }}</p>
+      <p>Phone Number: {{ bill.phone_number }}</p>
+      <p>Date: {{ bill.date }}</p>
+      <p>Additional Information: {{ bill.add_information }}</p>
+      <p>Cake: 
+        <ul>
+          {% for cake in cake_list %}
+              <li>{{ cake.cake_name }} - {{ cake.quantity }}</li>
+          {% endfor %}
+        </ul>
+      </p>
+      <p>Total Price: {{ bill.total_price }}</p>
+    </div>
+  </body>
+</html>

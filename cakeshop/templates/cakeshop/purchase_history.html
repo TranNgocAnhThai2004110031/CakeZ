@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>CakeZ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/purchase_history.css' %}">
+    <link rel="stylesheet" href="{% static 'css/purchase_history-costume.css' %}">
+    <script nonce="4536092a-3e20-4d9e-9d01-250536eb7330">(function (w, d) { !function (dk, dl, dm, dn) { dk[dm] = dk[dm] || {}; dk[dm].executed = []; dk.zaraz = { deferred: [], listeners: [] }; dk.zaraz.q = []; dk.zaraz._f = function (dp) { return function () { var dq = Array.prototype.slice.call(arguments); dk.zaraz.q.push({ m: dp, a: dq }) } }; for (const dr of ["track", "set", "debug"]) dk.zaraz[dr] = dk.zaraz._f(dr); dk.zaraz.init = () => { var ds = dl.getElementsByTagName(dn)[0], dt = dl.createElement(dn), du = dl.getElementsByTagName("title")[0]; du && (dk[dm].t = dl.getElementsByTagName("title")[0].text); dk[dm].x = Math.random(); dk[dm].w = dk.screen.width; dk[dm].h = dk.screen.height; dk[dm].j = dk.innerHeight; dk[dm].e = dk.innerWidth; dk[dm].l = dk.location.href; dk[dm].r = dl.referrer; dk[dm].k = dk.screen.colorDepth; dk[dm].n = dl.characterSet; dk[dm].o = (new Date).getTimezoneOffset(); if (dk.dataLayer) for (const dy of Object.entries(Object.entries(dataLayer).reduce(((dz, dA) => ({ ...dz[1], ...dA[1] }))))) zaraz.set(dy[0], dy[1], { scope: "page" }); dk[dm].q = []; for (; dk.zaraz.q.length;) { const dB = dk.zaraz.q.shift(); dk[dm].q.push(dB) } dt.defer = !0; for (const dC of [localStorage, sessionStorage]) Object.keys(dC || {}).filter((dE => dE.startsWith("_zaraz_"))).forEach((dD => { try { dk[dm]["z_" + dD.slice(7)] = JSON.parse(dC.getItem(dD)) } catch { dk[dm]["z_" + dD.slice(7)] = dC.getItem(dD) } })); dt.referrerPolicy = "origin"; dt.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(dk[dm]))); ds.parentNode.insertBefore(dt, ds) };["complete", "interactive"].includes(dl.readyState) ? zaraz.init() : dk.addEventListener("DOMContentLoaded", zaraz.init) }(w, d, "zarazData", "script"); })(window, document);
+    </script>
+</head>
+
+<body>
+    <section class="ftco-section background__htrc" style="
+        background-image: url(/static/img/slider_3.png);
+        background-position: center !important; 
+        background-size: cover !important; 
+        background-repeat: no-repeat; 
+        width: 100%; 
+        height: 300vh;
+        padding: 10px;">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-4">
+                    <h2 class="heading-section">History Cart</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="h5 mb-4 text-center text-center-color">You can see what you bought here!</h3>
+                    <div class="table-wrap">
+                        <table class="table myaccordion table-hover" id="accordion">
+                            <thead>
+                                <tr>
+                                    <th class="row_baground-cl">First Name</th>
+                                    <th class="row_baground-cl">Last Name</th>
+                                    <th class="row_baground-cl">Address</th>
+                                    <th class="row_baground-cl">Town/City</th>
+                                    <th class="row_baground-cl">Email</th>
+                                    <th class="row_baground-cl">Phone</th>
+                                    <th class="row_baground-cl">Date</th>
+                                    <th class="row_baground-cl">Quantity</th>
+                                    <th class="row_baground-cl">Total</th>
+                                    <th class="row_baground-cl">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for billItem in bills %}
+                            
+                                <tr data-toggle="collapse" data-target="#collapseOne_{{ billItem.id }}" aria-expanded="true"
+                                    aria-controls="collapseOne_{{ billItem.id }}">
+                                    <td>{{billItem.first_name}}</td>
+                                    <td>{{billItem.last_name}}</td>
+                                    <td>{{billItem.address}}</td>
+                                    <td>{{billItem.town_city}}</td>
+                                    <th scope="row">{{billItem.email}}</th>
+                                    <td>{{billItem.phone_number}}</td>
+                                    <td>{{billItem.date}}</td>
+                                    <td>
+                                        {% for cake in billItem.cake_list %}
+                                        {{ cake.quantity }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>${{ billItem.total }}</td>
+                                    <td>
+                                        <i class="fa" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" id="collapseOne_{{ billItem.id }}" class="collapse acc detail_box"
+                                        data-parent="#accordion">
+                                        <table class="table myaccordion table-hover" id="accordion">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Products</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-toggle="collapse" data-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                    <th scope="row">1</th>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                        {{ cakes.cake_name }} <br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                        ${{ cakes.price }}<br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                        {{ cakes.quantity }} <br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>${{ billItem.total }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table myaccordion table-hover" id="accordion">
+                                            <thead>
+                                                <tr>
+                                                    <th>Note</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-toggle="collapse" data-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                    <td>
+                                                        <p>{{ billItem.note }}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'js/jquey.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
+        integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+        data-cf-beacon='{"rayId":"7bd0832ae8dfc7ba","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.3.0","si":100}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
