@@ -8,7 +8,6 @@ from django.contrib import messages
 def get_index(request):
     return render(request, 'cakeshop/cake_list.html')
 
-
 def get_register(request):
     if request.method == 'POST': # kiểm tra xem yêu cầu có phải là phương thức POST hay không
         username = request.POST['username'] # lấy giá trị của trường username từ form
@@ -36,10 +35,24 @@ def get_register(request):
         return render(request, 'authentication/register.html')
 
 def get_login(request):
-
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        # check_value = request.POST.get('check')
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            # if check_value:
+            #     request.session['user_id'] = user.id
+            # request.session['username'] = username
+            return redirect('/')
+        else:
+            messages.error(request, 'Email or password not correct!')
+            # Invalid login
+            # return render(request, 'authentication/login.html', {'error': 'Invalid login credentials.'})
     context = {}
     return render(request, 'authentication/login.html', context)
 
 def get_logout(request):
-    
+    logout(request)
     return redirect("/authentication/login/")
