@@ -12,8 +12,19 @@ import datetime
 # class
 class Home(View):
     def home(request):
-        
-        return render(request, 'cakeshop/index.html')
+        categories = Category.objects.all()
+        cakes = Cake.objects.all().order_by('-id')
+        if request.user.is_authenticated:
+            Cart.switch_to_order(request)
+            orders = Order.objects.filter(user=request.user)
+            count = len(orders)
+            request.session['count'] = count
+        else:
+            cart = Cart.get_cart(request)
+            count = len(cart)
+            request.session['count'] = count
+        context = {'categories': categories, 'cakes': cakes}
+        return render(request, 'cakeshop/index.html', context)
 
 class Shop(View):
     def cakes_list(request):
