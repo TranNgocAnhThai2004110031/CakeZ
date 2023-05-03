@@ -1,0 +1,67 @@
+{% extends 'authentication/base.html' %}
+
+{% load static %}
+    <link href="{% static 'css/stylee.css'%}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+{% block title %}
+    Welcome Sign Up
+{% endblock title %}
+
+{% block content %}
+
+<section>
+    <div class="col-lg-6 login_form_img">
+        <img src="{% static 'img/anhBackLogin.jpeg' %}" width="100%" />
+    </div>
+    <div class="noi-dung">
+        <div class="form">
+                <h2 class="animate__animated animate__fadeInDown">Sign Up</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+            <div class="col-lg-6 login_form_form">
+                <div class="input_group entry_Login animate__animated animate__fadeInLeft">
+                    <input type="text" required="" autocomplete="off" name="username">
+                    <label for="mail">Username</label>
+                    <!-- {{form.username}} -->
+                </div>
+                <div class="input_group entry_Login animate__animated animate__fadeInLeft">
+                    <input type="text" required="" autocomplete="off" name="email">
+                    <label for="mail">Email</label>
+                    <!-- {{form.email}} -->
+                </div>
+                <div class="input_group entry_Login animate__animated animate__fadeInRight">
+                    <input type="password" required="" autocomplete="off" name="password1">
+                    <label for="password">Password</label>
+                    <!-- {{form.password1}} -->
+                </div>
+                <div class="input_group entry_Login animate__animated animate__fadeInLeft">
+                    <input type="password" required="" autocomplete="off" name="password2">
+                    <label for="password">Re-Password</label>
+                    <!-- {{form.password2}} -->
+                </div>
+                <div class="input_group check_Login animate__animated animate__fadeInRight">
+                    <label class="checkbox-btn">
+
+                        <input type="checkbox" id="myCheckbox" onclick="document.querySelector('#mySubmitButton').disabled = !this.checked;">
+                        <span class="checkmark"></span>
+                        <span class="text">Accept the condition</span>
+                    </label>
+                </div>
+                <div class="input_group button_Login animate__animated animate__fadeInRightBig">
+                    <input type="submit" value="Sign Up" id="mySubmitButton" disabled>
+                </div>
+                <div class="input_group animate__animated animate__fadeInLeftBig">
+                    <p>Already have an account? <a href= "{%url 'authentication:login' %}" >Login</a></p>
+                </div>
+            </div>
+        </form>
+        </div>
+        
+        
+    </div>
+
+</section>
+
+
+{% endblock content %}
