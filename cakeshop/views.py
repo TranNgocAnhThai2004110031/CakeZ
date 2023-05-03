@@ -67,21 +67,146 @@ class Shop(View):
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 class Cart(View):
+    @staticmethod
+    def switch_to_order(request):
+        cart = Cart.get_cart(request)
+        username = request.user
+        print(username)
+        if len(cart) != 0 and username != None:
+            for item in cart:
+                try:
+                    order = Order.objects.get(
+                        user=username, cake_id=item['id'])
+                    order.quantity += item['quantity']
+                    order.save()
+                except Order.DoesNotExist:
+                    order = Order.objects.create(
+                        user=username, cake_id=item['id'], quantity=item['quantity'])
+                    print(order)
+                    order.save()
+            del request.session['cart']
+
+    @staticmethod
+    def get_cart(request):
+        cart = request.session.get('cart', [])
+        if not isinstance(cart, list):
+            cart = list(cart.value())
+        return cart
 
     def cart_list(request):
-        
-        return render(request, 'cakeshop/shopping_cart.html')
+        cart = []
+        if request.user.is_authenticated == False:
+            cart = Cart.get_cart(request)
+        else:
+            username = request.user
+            orders = Order.objects.filter(user=username)
+            cakes = Cake.objects.all()
+            total = 0
+            for order in orders:
+                for cake in cakes:
+                    if cake.id == order.cake_id:
+                        price = float(cake.price) * float(order.quantity)
+                        total += price
+                        new_item = {'id': order.id, 'name': cake.name,
+                                    'image_url': cake.image_url, 'price': price, 'quantity': order.quantity}
+                        cart.append(new_item)
+            request.session['total'] = total
+        context = {'carts': cart}
+        return render(request, 'cakeshop/shopping_cart.html', context)
 
     def cart_add(request, pk):
-        
+        cart = Cart.get_cart(request)
+        cake_exit = False
+        cake = get_object_or_404(Cake, pk=pk)
+        total = 0
+        quantity = int(request.POST.get('quantity', 0))
+
+        if request.user.is_authenticated == False:
+            for item in cart:
+                if item['id'] == pk:
+                    item['quantity'] += quantity
+                    item['price'] = float(cake.price) + item['quantity']
+                    cake_exit = True
+
+            if not cake_exit:
+                new_item = {'id': pk, 'name': cake.name, 'image_url': cake.image_url,
+                            'price': float(cake.price), 'quantity': quantity}
+                cart.append(new_item)
+            count = len(cart)
+            request.session['count'] = count
+            request.session['cart'] = cart
+            total = sum([float(item['price']) for item in cart])
+        else:
+            username = request.user
+            try:
+                order = Order.objects.get(user=username, cake_id=pk)
+                order.quantity += quantity
+                order.save()
+            except Order.DoesNotExist:
+                order = Order.objects.create(
+                    user=username, cake_id=pk, quantity=quantity)
+                order.save()
+            orders = Order.objects.filter(user=username)
+            count = len(orders)
+            request.session['count'] = count
+
+        request.session['total'] = total
         return redirect("/shop")
 
     def cart_update(request, pk):
-        
+        quantity = int(request.POST.get('quantity', 0))
+
+        if request.user.is_authenticated == False:
+            cart = Cart.get_cart(request)
+            cake = get_object_or_404(Cake, pk=pk)
+            for i, item in enumerate(cart):
+                if item['id'] == pk:
+                    if quantity == 0:
+                        cart.pop(i)
+                    else:
+                        item['quantity'] = quantity
+                        item['price'] = float(cake.price) * quantity
+                    break
+            request.session['cart'] = cart
+            total = sum([float(item['price']) for item in cart])
+            request.session['total'] = total
+
+        else:
+            username = request.user
+            try:
+                order = Order.objects.get(user=username, id=pk)
+                order.quantity = quantity
+                order.save()
+            except Order.DoesNotExist:
+                pass
         return redirect("/cart")
 
     def cart_remove(request, pk):
-        
+        total = 0
+        if request.user.is_authenticated == False:
+            cart = Cart.get_cart(request)
+            for i, item in enumerate(cart):
+                if item['id'] == pk:
+                    cart.pop(i)
+                    break
+            request.session['cart'] = cart
+            total = sum([float(item['price']) for item in cart])
+        else:
+            username = request.user
+            try:
+                order = Order.objects.get(user=username, id=pk)
+                order.delete()
+                orders = Order.objects.filter(user=username)
+                cakes = Cake.objects.all()
+                for itemOrder in orders:
+                    for item in cakes:
+                        if item.id == itemOrder.cake_id:
+                            total += float(item.price) * \
+                                float(itemOrder.quantity)
+            except Order.DoesNotExist:
+                pass
+
+        request.session['total'] = total
         return redirect("/cart")
 
 
