@@ -2,19 +2,16 @@
 {% load static %}
 
 {% block additionalCss %}
-
 <link rel="stylesheet" href="{% static '/css/fontawesome.min.css' %}">
 <link rel="stylesheet" href="{% static '/css/base.css' %}">
 <link rel="stylesheet" href="{% static '/css/main.css' %}">
 <link rel="stylesheet" href="{% static '/css/responsive.css' %}">
 {% endblock additionalCss %}
 
-
 {% block title %}
     Home
 {% endblock title %}
     
-
 {% block content %}
 <div class="myapp container-fluid">
     <div class="main__slider">
@@ -46,11 +43,11 @@
                     <div class="introduce__background" style="background-image: url(./static/img/home-item_1.png);">
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4" id="about">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="introduce__background introduce__background-content">
                         <div class="introduce__background-content-wrapper">
                             <span class="introduce__background-title">
-                                Sweat Treats
+                                Sweet Treats
                             </span>
                             <p class="introduce__background-para">
                                 There are many variations of passages of Lorem Ipsum available, but the majority
@@ -97,13 +94,13 @@
                             </p>
                             <ul class="para-list">
                                 <li class="para-text">
-                                    <i class="fas fa-home me-3 para-icon"></i> Ho Chi Minh City
+                                    <i class="fas fa-home me-3 para-icon"></i> New York Break US
                                 </li>
                                 <li class="para-text">
                                     <i class="fas fa-envelope me-3 para-icon"></i> info@example.com
                                 </li>
                                 <li class="para-text">
-                                    <i class="fas fa-phone me-3 para-icon"></i> + 84 343 323 560
+                                    <i class="fas fa-phone me-3 para-icon"></i> + 01 234 567 88
                                 </li>
                             </ul>
                         </div>
@@ -136,8 +133,6 @@
     </div>
 </div>
 {% endblock content %}
-
-
 
 {% block additionalJs %}
 <script src="{% static '/js/slider.js' %}"></script>

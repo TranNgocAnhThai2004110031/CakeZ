@@ -15,15 +15,15 @@
             <div class="col-12 background-slider__column">
                 <div class="background-slider__list">
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_1.png);">
+                        style="background-image: url(../../static/img/slider_1.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_2.png);">
+                        style="background-image: url(../../static/img/slider_2.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_3.png);">
+                        style="background-image: url(../../static/img/slider_3.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                 </div>
@@ -43,9 +43,15 @@
                         {% for category in categories %}
                         <a href="{% url 'cakeshop:cate_detail' category.id %}"
                             class="col-lg-12 col-md-2 col-sm-3 content__category-link">
+                            {% if category.id == activeId %}
+                            <li class="content__category-item active-cate">
+                                {{ category.name }}
+                            </li>
+                            {% else %}
                             <li class="content__category-item">
                                 {{ category.name }}
                             </li>
+                            {% endif %}      
                         </a>
                         {% endfor %}
                     </ul>
@@ -54,7 +60,7 @@
                     <div class="row">
                         <a href="#">
                             <div class="advertisement__picture shine-box"
-                                style="background-image: url(./static/img/slider_2.png);">
+                                style="background-image: url(../../static/img/slider_2.png);">
                                 <div class="advertisement__discount-bg">
                                     <span class="advertisement__discount-text">-50%</span>
                                 </div>
@@ -64,30 +70,6 @@
                 </div>
             </div>
             <div class="col-lg-8 products__list-item-move">
-                <div class="row">
-                    <div class="banner-wrapper">
-                        <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_1.png);">
-
-                        </div>
-                        <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_2.png);">
-
-                        </div>
-                        <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_3.png);">
-
-                        </div>
-                        <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_4.png);">
-
-                        </div>
-                        <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_5.png);">
-
-                        </div>
-                    </div>
-                </div>
                 <div class="row product_item-wrapper">
                     {% for cake in cakes %}
                     <div class="col-lg-4 col-md-4 col-sm-6">
@@ -112,53 +94,70 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal" id="modal{{ cake.id }}">
-                        <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div>
-                        <div class="container item__detail-size">
-                            <div class="row item__detail">
-                                <form action="{% url 'cakeshop:add_to_cart' cake.id %}" method="post"
-                                    class="row item__detail" style="padding: 0px;">
-                                    {% csrf_token %}
-                                    <div class="col-lg-6 col-sm-12">
-                                        <div class="item__detail-background"
-                                            style="background-image: url('{{ cake.image_url }}');"></div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-12">
-                                        <div class="item_detail-content">
-                                            <h1 class="item_detail-name">{{ cake.name }}</h1>
-                                            <p class="item_detail-para">
-                                                {{ cake.description }}
-
-                                            </p>
-                                            <span class="item__price">${{ cake.price }}</span>
-                                            <div class="item_detail-quantity-wrapper">
-                                                <span class="item_detail-input-label">Quantity</span>
-                                                <input class="item_detail-input" type="number" required name="quantity"
-                                                    id="quantity" min="1" value="1"
-                                                    onKeyPress="if(this.value.length==0) return false;"
-                                                    inputmode="numeric"
-                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                                            </div>
-                                        </div>
-                                        <div class="item_detail-btn-wrapper">
-                                            <button type="submit" class="item_detail-btn-add">
-                                                <i class="fa-solid fa-cake shop-item__link-icon"></i>
-                                                <i class="fa-duotone fa-pie shop-item__link-icon"></i>
-                                                <span class="shop-item__link-text">
-                                                    Order now !
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     {% empty %}
                     <center>
                         <h2>No cake available.</h2>
                     </center>
                     {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pagination-wrapper">
+                            {% if cakes.has_other_pages %}
+                            <ul class="pagination">
+                                {% if cakes.has_previous %}
+                                <a class="page-btn" href="?page=1">&laquo; first</a>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ cakes.previous_page_number }}"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </li>
+                                {% endif %}
+                                {% for i in cakes.paginator.page_range %}
+                                {% if cakes.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span
+                                            class="sr-only">(current)</span></span></li>
+                                {% elif i > cakes.number|add:'-3' and i < cakes.number|add:'3' %} <li class="page-item">
+                                    <a class="page-link" href="?page={{ i }}">
+                                        <span class="page-number">
+                                            {{ i }}
+                                        </span>
+                                    </a></li>
+                                    {% elif i == cakes.paginator.num_pages %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                    {% elif i == cakes.number|add:'-3' or i == cakes.number|add:'3' %}
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% if cakes.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ cakes.next_page_number }}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </li>
+                                    {% endif %}
+                                    {% if cakes.has_next %}
+                                        <a class="page-btn" href="?page={{ cakes.paginator.num_pages }}">last &raquo;</a>
+                                    {% endif %}
+                                    {% endif %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <h3 class="company_name">Budget-Friendly Cake Selection</h3>
@@ -174,6 +173,7 @@
                                 </div>
                             </a>
                         </div>
+
                         {% endfor %}
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_1.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_1.png);"></div>
                                         <h4 class="comment__name">Diana Melverich</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -204,7 +204,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_2.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_2.png);"></div>
                                         <h4 class="comment__name">Annan joly</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -214,7 +214,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_3.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_3.png);"></div>
                                         <h4 class="comment__name">Tristiana Romeo</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -224,7 +224,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_4.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_4.png);"></div>
                                         <h4 class="comment__name">John Baker</h4>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@
                     <div class="row">
                         <a href="#">
                             <div class="advertisement__picture shine-box"
-                                style="background-image: url(./static/img/adv_1.png);">
+                                style="background-image: url(../../static/img/adv_1.png);">
                                 <div class="advertisement__discount-bg">
                                     <span class="advertisement__discount-text">-50%</span>
                                 </div>
@@ -249,17 +249,53 @@
     </div>
 </div>
 
+{% for cake in modals %}
+<div class="modal" id="modal{{ cake.id }}">
+    <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div>
+    <div class="container item__detail-size">
+        <div class="row item__detail">
+            <form action="{% url 'cakeshop:add_to_cart' cake.id %}" method="post" class="row item__detail"
+                style="padding: 0px;">
+                {% csrf_token %}
+                <div class="col-lg-6 col-sm-12">
+                    <div class="item__detail-background" style="background-image: url('{{ cake.image_url }}');"></div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="item_detail-content">
+                        <h1 class="item_detail-name">{{ cake.name }}</h1>
+                        <p class="item_detail-para">
+                            {{ cake.description }}
 
-
+                        </p>
+                        <span class="item__price">${{ cake.price }}</span>
+                        <div class="item_detail-quantity-wrapper">
+                            <span class="item_detail-input-label">Quantity</span>
+                            <input class="item_detail-input" type="number" required name="quantity" id="quantity"
+                                min="1" value="1" onKeyPress="if(this.value.length==0) return false;"
+                                inputmode="numeric"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                        </div>
+                    </div>
+                    <div class="item_detail-btn-wrapper">
+                        <button type="submit" class="item_detail-btn-add">
+                            <i class="fa-solid fa-cake shop-item__link-icon"></i>
+                            <i class="fa-duotone fa-pie shop-item__link-icon"></i>
+                            <span class="shop-item__link-text">
+                                Order now !
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock content %}
 
 {% block additionalJs %}
-
 <script src="{% static '/js/slider.js' %}"></script>
 <script src="{% static '/js/click_Event.js' %}"></script>
-
 {% endblock additionalJs %}
-
-
 </html>

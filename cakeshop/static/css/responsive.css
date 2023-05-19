@@ -136,4 +136,13 @@
     .item_detail-input-label {
         font-size: 1.8rem !;
     }
+
+    /* pagination */
+    .pagination {
+        padding: 0px 8px !important;
+    }
+
+    .page-link {
+        font-size: 1.4rem;
+    }
 }

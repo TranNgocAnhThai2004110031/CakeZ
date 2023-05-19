@@ -12,9 +12,7 @@ body {
     margin-top: 4px;
 }
 
-.content__category {
-    
-}
+
 
 .content__category-title {
     font-size: 5.8rem;
@@ -33,6 +31,7 @@ body {
 .content__category-item {
     font-size: 2.8rem;
     padding-left: 20px;
+    text-transform: capitalize;
 }
 
 .content__category-item:hover {
@@ -141,9 +140,6 @@ body {
     transform: scale(1.5);
 }
 
-.products__item-info {
-
-}
 
 .item__info {
     text-align: center;
@@ -201,6 +197,67 @@ body {
     font-size: 2.2rem;
     font-weight: bold;
 }
+
+/* Pagination */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    width: 600px;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-btn {
+    font-weight: 600;
+    font-size: 1.8rem;
+    border-radius: 4px;
+    color: var(--main-color);
+    padding: 1% 2% !important;
+    background-color: var(--white-color);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+/* .page-item {
+   
+} */
+
+.page-link {
+    border: none;
+    display: flex;
+    color: black;
+    font-weight: 600;
+    overflow: hidden;
+    font-size: 1.8rem;
+    background-color: transparent !important;
+}
+
+.page-number {
+    margin: auto;
+}
+
+/* .sr-only {
+
+} */
+
+.active {
+    background-color: var(--main-color) !important;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+.active-cate{
+    background-color: var(--main-color) !important;
+    color: var(--white-color);
+
+}
+/* .page-item .disabled {
+
+} */
 
 /* Company slider */
 .company-item {
@@ -284,10 +341,13 @@ body {
 /* form item detail */
 .item__detail-size {
     width: 60%;
-    height: 100%;
+
+    margin-top: 15vh;
     display: flex;
     align-items: center !important;
 }
+
+
 
 .item__detail {
     width: 100%;

@@ -13,7 +13,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.banner-wrapper').slick({
         dots: false,
-        infinite: false,
+        infinite: true,
         slidesToShow: 2,
         slidesToScroll: 1,
         autoplay: true,
@@ -55,7 +55,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.company-wrapper').slick({
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 1000,
         slidesToShow: 5,
         slidesToScroll: 3,

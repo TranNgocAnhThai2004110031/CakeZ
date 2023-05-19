@@ -1,15 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Cake, Order, Bill
-from django.contrib.auth.models import User
 from django.shortcuts import redirect
-import pickle
 import json
-import numpy as np
 from django.views import View
 from django.urls import reverse
-import datetime
-
+from django.core.paginator import Paginator
 # class
+
+
 class Home(View):
     def home(request):
         categories = Category.objects.all()
@@ -24,13 +22,22 @@ class Home(View):
             count = len(cart)
             request.session['count'] = count
         context = {'categories': categories, 'cakes': cakes}
+
         return render(request, 'cakeshop/index.html', context)
+
 
 class Shop(View):
     def cakes_list(request):
         cakes = Cake.objects.all().order_by('-id')
+
         categories = Category.objects.all()
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
+        paginator = Paginator(cakes, 9)
+        # lấy số trang được yêu cầu từ query string
+        page_number = request.GET.get('page')
+        # trả về đối tượng trang được yêu cầu
+        page_obj = paginator.get_page(page_number)
 
         if request.user.is_authenticated == False:
             cart = Cart.get_cart(request)
@@ -40,7 +47,8 @@ class Shop(View):
             orders = Order.objects.filter(user=request.user)
             count = len(orders)
             request.session['count'] = count
-        context = {'cakes': cakes, 'categories': categories, 'count': count, 'cheap_cakes': cheap_cakes, }
+        context = {'cakes': page_obj, 'categories': categories, 'count': count,
+                   'cheap_cakes': cheap_cakes, 'modals': cakes}
         return render(request, 'cakeshop/products.html', context)
 
     def search(request):
@@ -51,7 +59,10 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        context = {'categories': categories, 'cakes': cakes}
+
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        context = {'categories': categories, 'cakes': cakes,
+                   'cheap_cakes': cheap_cakes, 'modals': cheap_cakes}
         return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
@@ -61,8 +72,11 @@ class Shop(View):
     def cate_detail(request, pk):
         categories = Category.objects.all()
         cakes = Cake.objects.filter(category=pk)
-        context = {'categories': categories, 'cakes': cakes}
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        context = {'categories': categories,
+                   'cakes': cakes, 'cheap_cakes': cheap_cakes, 'modals': cheap_cakes, 'activeId': pk}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
+
 
 class Cart(View):
     @staticmethod
@@ -110,6 +124,7 @@ class Cart(View):
                         cart.append(new_item)
             request.session['total'] = total
         context = {'carts': cart}
+        # return render(request, 'cakeshop/cart.html', context)
         return render(request, 'cakeshop/shopping_cart.html', context)
 
     def cart_add(request, pk):
@@ -189,6 +204,8 @@ class Cart(View):
                     break
             request.session['cart'] = cart
             total = sum([float(item['price']) for item in cart])
+            count = len(cart)
+            request.session['count'] = count
         else:
             username = request.user
             try:
@@ -203,6 +220,8 @@ class Cart(View):
                                 float(itemOrder.quantity)
             except Order.DoesNotExist:
                 pass
+            count = len(orders)
+            request.session['count'] = count
 
         request.session['total'] = total
         return redirect("/cart")
@@ -266,6 +285,9 @@ class BillView(View):
                                         'price': price, 'quantity': order.quantity}
                             cart.append(new_item)
                 request.session['total'] = total
+                orders = Order.objects.filter(user=username)
+                count = len(orders)
+                request.session['count'] = count
                 context = {'cart': cart}
                 return render(request, 'cakeshop/create_bill.html', context)
 
@@ -284,3 +306,4 @@ class BillView(View):
 
         context = {'bills': bills}
         return render(request, 'cakeshop/purchase_history.html', context)
+

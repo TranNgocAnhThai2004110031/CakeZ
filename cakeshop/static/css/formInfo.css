@@ -7,11 +7,6 @@
     display: flex;
     justify-content: center;
 }
-
-.form-wapper {
-
-}
-
 .form-tite {
     font-size: 48px;
     color: white;
@@ -69,10 +64,6 @@
 .form__textarea::placeholder {
     font-size: 24px !important; 
     color: #cccc;
-}
-
-.product {
-
 }
 
 .product__name {

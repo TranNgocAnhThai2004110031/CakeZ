@@ -44,7 +44,7 @@
   <nav class="header navbar navbar-dark bg-transparent" aria-label="Dark offcanvas navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
-        <div class="navbar__logo" style="background-image: url(./static/img/shop_logo.png);"></div>
+        <div class="navbar__logo" style="background-image: url('../../static/img/shop_logo.png');"></div>
       </a>
       <div class="btn-wrapper d-flex justify-content-center">
         <form class="search-box" role="search" method="get" action="{% url 'cakeshop:search' %}">
@@ -82,33 +82,33 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'cakeshop:shop' %}">Products</a>
+              <a class="nav-link" href="{% url 'cakeshop:shop' %}">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'cakeshop:home' %}#about">About Us</a>
+              <a class="nav-link" href="{% url 'cakeshop:home' %}#about">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#contact">Contact Us</a>
+              <a class="nav-link" href="#contact">Contact Us</a>
             </li>
             {% if request.user.is_authenticated %}
-            <li class="nav-link active">
-              <a class="nav-link active" href="">{{ request.user }}</a>
+            <li class="nav-link">
+              <a class="nav-link" href="">{{ request.user }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'cakeshop:purchase_history' %}">Purchase history</a>
+              <a class="nav-link" href="{% url 'cakeshop:purchase_history' %}">Purchase history</a>
             </li>
-            <li class="nav-link active" class="nav-item">
-              <a class="nav-link active" href="{% url 'authentication:logout' %}">Logout</a>
+            <li class="nav-link" class="nav-item">
+              <a class="nav-link" href="{% url 'authentication:logout' %}">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'authentication:login' %}">Login</a>
+              <a class="nav-link" href="{% url 'authentication:login' %}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'authentication:register' %}">Register</a>
+              <a class="nav-link" href="{% url 'authentication:register' %}">Register</a>
             </li>
             {% endif %}
           </ul>
