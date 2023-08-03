@@ -1,5 +1,5 @@
 # CakeZ
-Website selling cakes
+CakeZ là một ứng dụng web bánh trực tuyến với giao diện thân thiện và các chức năng phong phú, hỗ trợ người dùng có thể mua sắm các loại bánh một cách dễ dàng và tiện lợi.
 - Màn hình trang home:
   ![image](https://github.com/TranNgocAnhThai2004110031/CakeZ/assets/90894257/b9897e29-33a1-411b-a89e-c85b6f3a8fe6)
 - Chức năng xác thực người dùng chưa đăng nhập:
